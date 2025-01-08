@@ -3,7 +3,10 @@
 </svelte:head>
 
 <script>
-  import { createShortUrl } from '$lib/api';
+// @ts-nocheck
+
+  import { createShortUrl } from '$lib/api/createShortUrl';
+
   let originalUrl = '';
   let shortUrl = '';
   let loading = false;
@@ -37,7 +40,8 @@
           loading = true;
           try {
             const response = await createShortUrl(originalUrl);
-            shortUrl = response.shortUrl;
+            
+            shortUrl = response?.secureShortURL;
           } catch {
             error = 'Failed to shorten URL';
           } finally {
